@@ -1,8 +1,8 @@
-export type IUser = {
+export type IDoctor = {
   name: string;
   email: string;
-  password: string;
-  role: 'user' | 'admin';
+  specialization: string;
+  phone: string;
   createdAt: Date;
   updatedAt: Date;
 };

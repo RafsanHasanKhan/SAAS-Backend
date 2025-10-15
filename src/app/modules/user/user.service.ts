@@ -9,18 +9,24 @@ const createUser = async (userData: Partial<IUser>) => {
   return user;
 };
 
+
+
 const loginUser = async (email: string, password: string) => {
   const user = await UserModel.findOne({ email });
   if (!user) throw new Error('User not found');
 
-  const isMatch = await bcrypt.compare(password, user.password);
+  const isMatch = await bcrypt.compare(password, user.password)
   if (!isMatch) throw new Error('Invalid password');
 
-  const token = jwt.sign({ id: user._id, role: user.role }, config.jwt.secret, {
-    expiresIn: config.jwt.expires_in,
-  });
-  return { user, token };
-};
+  const token = jwt.sign(
+    { id: user._id, role: user.role },
+    config.jwt.secret,
+    {
+      expiresIn: config.jwt.expires_in,
+    }
+  );
+  return {user, token}
+}
 
 export const userService = {
   createUser,

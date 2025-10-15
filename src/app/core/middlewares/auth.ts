@@ -20,6 +20,7 @@ export const authMiddleware = (
   try {
     const decoded = jwt.verify(token, config.jwt.secret!);
     (req as any).user = decoded;
+    next()
   } catch (error) {
     res.status(STATUS_CODES.UNAUTHORIZED).json({ message: 'Invalid Token' });
   }
